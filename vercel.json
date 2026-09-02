@@ -1,0 +1,11 @@
+{
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/project-manager", "destination": "/api/project-manager" }
+  ],
+  "functions": {
+    "api/project-manager.js": {
+      "includeFiles": "lib/**"
+    }
+  }
+}

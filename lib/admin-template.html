@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hussaini Automations — Project Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1424; --navy-2:#0f1c30; --cream:#f6f1e6; --gold:#c7a25c; --gold-bright:#e3c17f;
+    --ink:#16213a; --ink-soft:#5b6178; --line:#e4dcc9; --danger:#b3563f; --ok:#3f7a5c;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink); line-height:1.55; }
+  h1,h2,h3{ font-family:'Fraunces',serif; font-weight:600; margin:0; }
+  .topbar{
+    background:var(--navy); color:var(--cream); padding:26px 36px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;
+  }
+  .topbar h1{ font-size:20px; }
+  .topbar p{ margin:4px 0 0; font-size:13.5px; color:rgba(246,241,230,0.6); }
+  .logout-btn{
+    background:transparent; border:1px solid rgba(246,241,230,0.3); color:var(--cream); font-size:13px;
+    padding:9px 16px; border-radius:7px; cursor:pointer; font-family:'Inter',sans-serif;
+  }
+  .logout-btn:hover{ border-color:var(--gold); color:var(--gold-bright); }
+  .wrap{ max-width:980px; margin:0 auto; padding:40px 24px 100px; }
+
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:12px; padding:30px; margin-bottom:28px;
+  }
+  .card h2{ font-size:19px; margin-bottom:6px; }
+  .card .hint{ color:var(--ink-soft); font-size:14px; margin-bottom:22px; }
+
+  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px; }
+  .steps .step{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:18px 20px; }
+  .steps .step b{ color:var(--gold); display:block; font-family:'Fraunces',serif; font-size:15px; margin-bottom:6px; }
+  .steps .step span{ font-size:13.5px; color:var(--ink-soft); }
+  @media (max-width:760px){ .steps{ grid-template-columns:1fr; } }
+
+  label{ display:block; font-size:13px; font-weight:500; margin:0 0 6px; color:var(--ink); }
+  .field{ margin-bottom:18px; }
+  input[type=text], input[type=url], textarea{
+    width:100%; padding:11px 13px; border:1px solid var(--line); border-radius:7px; font-family:'Inter',sans-serif;
+    font-size:14.5px; background:#fcfaf4; color:var(--ink);
+  }
+  input:focus, textarea:focus{ outline:none; border-color:var(--gold); background:#fff; }
+  textarea{ resize:vertical; min-height:80px; }
+  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:640px){ .row2{ grid-template-columns:1fr; } }
+
+  .img-upload{
+    display:flex; align-items:center; gap:16px; border:1px dashed var(--line); border-radius:10px; padding:14px; background:#fcfaf4;
+  }
+  .img-upload .thumb{
+    width:90px; height:64px; border-radius:6px; background:var(--navy-2); background-size:cover; background-position:center;
+    flex-shrink:0; border:1px solid var(--line);
+  }
+  .img-upload input[type=file]{ font-size:13px; }
+  .img-upload .clear-img{ font-size:12.5px; color:var(--danger); cursor:pointer; border:none; background:none; padding:0; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:8px; font-size:14px; font-weight:500;
+    border:1px solid transparent; cursor:pointer; transition:transform .2s, background .2s;
+  }
+  .btn:active{ transform:scale(.97); }
+  .btn-primary{ background:var(--navy); color:var(--cream); }
+  .btn-primary:hover{ background:var(--navy-2); }
+  .btn-gold{ background:var(--gold); color:var(--navy); }
+  .btn-gold:hover{ background:var(--gold-bright); }
+  .btn-ghost{ background:#fff; border-color:var(--line); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--ink); }
+  .btn-danger{ background:#fff; border-color:var(--danger); color:var(--danger); }
+  .btn-danger:hover{ background:var(--danger); color:#fff; }
+  .btn-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top:6px; }
+
+  .list{ display:flex; flex-direction:column; gap:12px; }
+  .list-item{
+    display:flex; align-items:center; gap:16px; border:1px solid var(--line); border-radius:10px; padding:14px 16px; background:#fff;
+  }
+  .list-item .li-thumb{
+    width:64px; height:46px; border-radius:6px; background:var(--navy-2); background-size:cover; background-position:center; flex-shrink:0;
+  }
+  .list-item .li-body{ flex:1; min-width:0; }
+  .list-item .li-body b{ font-family:'Fraunces',serif; font-size:15.5px; }
+  .list-item .li-body div{ font-size:13px; color:var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .li-actions{ display:flex; gap:8px; flex-shrink:0; }
+  .li-actions button{
+    border:1px solid var(--line); background:#fff; border-radius:6px; width:32px; height:32px; cursor:pointer; font-size:14px;
+  }
+  .li-actions button:hover{ border-color:var(--ink); }
+  .empty-note{ color:var(--ink-soft); font-size:14px; padding:14px 0; }
+
+  .status{
+    font-size:13.5px; padding:10px 14px; border-radius:8px; margin-top:14px; display:none;
+  }
+  .status.show{ display:block; }
+  .status.ok{ background:#eaf3ee; color:var(--ok); }
+  .status.err{ background:#f7eae6; color:var(--danger); }
+
+  .badge{
+    display:inline-block; font-size:11.5px; padding:3px 9px; border-radius:100px; background:var(--gold); color:var(--navy);
+    margin-left:8px; vertical-align:middle;
+  }
+
+  /* ---------- welcome overlay ---------- */
+  .welcome-overlay{
+    position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center;
+    background:var(--navy); opacity:1; transition:opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1);
+  }
+  .welcome-overlay::before{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(46% 60% at 50% 42%, rgba(198,162,92,0.22), transparent 70%);
+    animation:welcomeGlow 2.4s ease-in-out infinite alternate;
+  }
+  @keyframes welcomeGlow{
+    from{ opacity:.55; transform:scale(1); }
+    to{ opacity:1; transform:scale(1.08); }
+  }
+  .welcome-overlay.hide{ opacity:0; transform:scale(1.04); pointer-events:none; }
+  .welcome-inner{ position:relative; text-align:center; }
+  .welcome-mark{
+    width:36px; height:36px; margin:0 auto 22px; opacity:0;
+    animation:welcomeRise .7s cubic-bezier(.16,.8,.24,1) .1s forwards;
+  }
+  .welcome-text{
+    font-family:'Fraunces',serif; font-weight:500; font-style:italic; color:#f6f1e6;
+    font-size:clamp(26px,4vw,40px); display:flex; gap:0.32em; justify-content:center; flex-wrap:wrap;
+  }
+  .welcome-text span{
+    opacity:0; display:inline-block; transform:translateY(16px);
+    animation:welcomeRise .7s cubic-bezier(.16,.8,.24,1) forwards;
+  }
+  .welcome-text span:nth-child(1){ animation-delay:.22s; }
+  .welcome-text span:nth-child(2){ animation-delay:.32s; }
+  .welcome-text span:nth-child(3){ animation-delay:.42s; color:var(--gold-bright); }
+  @keyframes welcomeRise{ to{ opacity:1; transform:translateY(0); } }
+  .welcome-underline{
+    height:1px; width:0; background:var(--gold); margin:20px auto 0;
+    animation:welcomeLine .6s cubic-bezier(.16,.8,.24,1) .62s forwards;
+  }
+  @keyframes welcomeLine{ to{ width:64px; } }
+</style>
+</head>
+<body>
+
+<div class="welcome-overlay" id="welcome-overlay">
+  <div class="welcome-inner">
+    <svg class="welcome-mark" viewBox="0 0 40 40" fill="none">
+      <rect x="1" y="1" width="38" height="38" rx="9" stroke="#c7a25c" stroke-width="1.2"/>
+      <path d="M12 12V28M12 20H22M22 12V28" stroke="#f6f1e6" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="28" cy="13" r="2.6" fill="#c7a25c"/>
+    </svg>
+    <div class="welcome-text"><span>Welcome</span><span>back,</span><span>YH.</span></div>
+    <div class="welcome-underline"></div>
+  </div>
+</div>
+
+
+<div class="topbar">
+  <div>
+    <h1>Hussaini Automations — Project Manager</h1>
+    <p>Add finished work here, download the file, upload it to your host. No code required.</p>
+  </div>
+  <button class="logout-btn" id="logout-btn">Log out</button>
+</div>
+
+<div class="wrap">
+
+  <div class="steps">
+    <div class="step"><b>1. Add a project</b><span>Fill in the form below for each finished project and click "Add to List".</span></div>
+    <div class="step"><b>2. Download the file</b><span>Once your list looks right, click "Download projects.json".</span></div>
+    <div class="step"><b>3. Upload to hosting</b><span>Replace the old <code>projects.json</code> file next to <code>index.html</code> on your host. The live site updates instantly.</span></div>
+  </div>
+
+  <div class="card">
+    <h2 id="form-title">Add a Project</h2>
+    <p class="hint">This becomes one case study in the "Selected Work" section on the landing page.</p>
+
+    <div class="row2">
+      <div class="field">
+        <label>Project name</label>
+        <input type="text" id="f-name" placeholder="e.g. Saifee Inventory">
+      </div>
+      <div class="field">
+        <label>Client / business name</label>
+        <input type="text" id="f-client" placeholder="e.g. Saifee Hardware & Plywood">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>System type / subtitle</label>
+      <input type="text" id="f-subtitle" placeholder="e.g. Smart Inventory Management System">
+    </div>
+
+    <div class="field">
+      <label>Description (the problem &amp; what you built — 2–3 sentences)</label>
+      <textarea id="f-desc" placeholder="What was the business struggling with, and what did the system solve?"></textarea>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label>Tags (comma separated)</label>
+        <input type="text" id="f-tags" placeholder="e.g. Inventory, Business Management, Custom Software">
+      </div>
+      <div class="field">
+        <label>Case study link (optional)</label>
+        <input type="url" id="f-link" placeholder="https://... (leave blank to hide the button)">
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label>Client testimonial (optional)</label>
+        <textarea id="f-quote" placeholder="A short quote from the client, if you have one"></textarea>
+      </div>
+      <div class="field">
+        <label>Quote attribution (optional)</label>
+        <input type="text" id="f-quoteauthor" placeholder="Defaults to the client name if left blank">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Screenshot</label>
+      <div class="img-upload">
+        <div class="thumb" id="img-thumb"></div>
+        <div style="flex:1;">
+          <input type="file" id="f-image" accept="image/*">
+          <div style="margin-top:6px;"><button type="button" class="clear-img" id="clear-img">Remove image</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-gold" id="save-btn">Add to List</button>
+      <button class="btn btn-ghost" id="cancel-edit" style="display:none;">Cancel Edit</button>
+    </div>
+    <div class="status" id="form-status"></div>
+  </div>
+
+  <div class="card">
+    <h2>Current Projects <span class="badge" id="count-badge">0</span></h2>
+    <p class="hint">This is the order they'll appear in on the landing page, top to bottom. Use the arrows to reorder.</p>
+    <div class="list" id="project-list"></div>
+    <div class="empty-note" id="empty-note">No projects yet — add your first one above.</div>
+  </div>
+
+  <div class="card">
+    <h2>Import / Export</h2>
+    <p class="hint">Load an existing projects.json to keep editing it, or download your current list to publish.</p>
+    <div class="btn-row">
+      <label class="btn btn-ghost" style="cursor:pointer;">
+        Load existing projects.json
+        <input type="file" id="import-file" accept="application/json" style="display:none;">
+      </label>
+      <button class="btn btn-primary" id="download-btn">Download projects.json</button>
+    </div>
+    <div class="status" id="io-status"></div>
+  </div>
+
+</div>
+
+<script>
+  const STORAGE_KEY = "hussaini_projects_v1";
+  let projects = [];
+  let editIndex = null;
+  let pendingImage = "";
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      projects = raw ? JSON.parse(raw) : [];
+    } catch (e) { projects = []; }
+  }
+  function persist() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+  }
+
+  function resetForm() {
+    document.getElementById("f-name").value = "";
+    document.getElementById("f-client").value = "";
+    document.getElementById("f-subtitle").value = "";
+    document.getElementById("f-desc").value = "";
+    document.getElementById("f-tags").value = "";
+    document.getElementById("f-link").value = "";
+    document.getElementById("f-quote").value = "";
+    document.getElementById("f-quoteauthor").value = "";
+    document.getElementById("f-image").value = "";
+    pendingImage = "";
+    document.getElementById("img-thumb").style.backgroundImage = "";
+    editIndex = null;
+    document.getElementById("form-title").textContent = "Add a Project";
+    document.getElementById("save-btn").textContent = "Add to List";
+    document.getElementById("cancel-edit").style.display = "none";
+  }
+
+  function showStatus(id, msg, type) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.className = "status show " + type;
+    setTimeout(() => el.classList.remove("show"), 3500);
+  }
+
+  document.getElementById("f-image").addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      pendingImage = reader.result;
+      document.getElementById("img-thumb").style.backgroundImage = `url('${pendingImage}')`;
+    };
+    reader.readAsDataURL(file);
+  });
+  document.getElementById("clear-img").addEventListener("click", () => {
+    pendingImage = "";
+    document.getElementById("f-image").value = "";
+    document.getElementById("img-thumb").style.backgroundImage = "";
+  });
+
+  document.getElementById("save-btn").addEventListener("click", () => {
+    const name = document.getElementById("f-name").value.trim();
+    const client = document.getElementById("f-client").value.trim();
+    if (!name || !client) {
+      showStatus("form-status", "Project name and client name are required.", "err");
+      return;
+    }
+    const entry = {
+      name,
+      client,
+      subtitle: document.getElementById("f-subtitle").value.trim(),
+      description: document.getElementById("f-desc").value.trim(),
+      tags: document.getElementById("f-tags").value.split(",").map(t => t.trim()).filter(Boolean),
+      caseLink: document.getElementById("f-link").value.trim(),
+      quote: document.getElementById("f-quote").value.trim(),
+      quoteAuthor: document.getElementById("f-quoteauthor").value.trim(),
+      image: pendingImage
+    };
+    if (editIndex !== null) {
+      // keep old image if user didn't upload a new one during edit
+      if (!entry.image) entry.image = projects[editIndex].image || "";
+      projects[editIndex] = entry;
+      showStatus("form-status", "Project updated.", "ok");
+    } else {
+      projects.push(entry);
+      showStatus("form-status", "Project added.", "ok");
+    }
+    persist();
+    renderList();
+    resetForm();
+  });
+
+  document.getElementById("cancel-edit").addEventListener("click", resetForm);
+
+  function editProject(i) {
+    const p = projects[i];
+    editIndex = i;
+    document.getElementById("f-name").value = p.name || "";
+    document.getElementById("f-client").value = p.client || "";
+    document.getElementById("f-subtitle").value = p.subtitle || "";
+    document.getElementById("f-desc").value = p.description || "";
+    document.getElementById("f-tags").value = (p.tags || []).join(", ");
+    document.getElementById("f-link").value = p.caseLink || "";
+    document.getElementById("f-quote").value = p.quote || "";
+    document.getElementById("f-quoteauthor").value = p.quoteAuthor || "";
+    pendingImage = p.image || "";
+    document.getElementById("img-thumb").style.backgroundImage = pendingImage ? `url('${pendingImage}')` : "";
+    document.getElementById("form-title").textContent = "Edit Project";
+    document.getElementById("save-btn").textContent = "Save Changes";
+    document.getElementById("cancel-edit").style.display = "inline-flex";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function deleteProject(i) {
+    if (!confirm(`Remove "${projects[i].name}" from the list?`)) return;
+    projects.splice(i, 1);
+    persist();
+    renderList();
+  }
+
+  function moveProject(i, dir) {
+    const j = i + dir;
+    if (j < 0 || j >= projects.length) return;
+    [projects[i], projects[j]] = [projects[j], projects[i]];
+    persist();
+    renderList();
+  }
+
+  function renderList() {
+    const list = document.getElementById("project-list");
+    const empty = document.getElementById("empty-note");
+    document.getElementById("count-badge").textContent = projects.length;
+    empty.style.display = projects.length ? "none" : "block";
+    list.innerHTML = projects.map((p, i) => `
+      <div class="list-item">
+        <div class="li-thumb" style="${p.image ? `background-image:url('${p.image}')` : ""}"></div>
+        <div class="li-body">
+          <b>${i + 1}. ${escapeHtml(p.name)}</b>
+          <div>${escapeHtml(p.subtitle || "")} — ${escapeHtml(p.client)}</div>
+        </div>
+        <div class="li-actions">
+          <button title="Move up" onclick="moveProject(${i}, -1)">↑</button>
+          <button title="Move down" onclick="moveProject(${i}, 1)">↓</button>
+          <button title="Edit" onclick="editProject(${i})">✎</button>
+          <button title="Delete" onclick="deleteProject(${i})">✕</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function escapeHtml(str) {
+    return String(str || "").replace(/[&<>"']/g, c => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+  }
+
+  document.getElementById("download-btn").addEventListener("click", () => {
+    if (!projects.length) {
+      showStatus("io-status", "Add at least one project first.", "err");
+      return;
+    }
+    const blob = new Blob([JSON.stringify({ projects }, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "projects.json";
+    a.click();
+    URL.revokeObjectURL(url);
+    showStatus("io-status", "Downloaded. Upload this file to your host, replacing the old projects.json.", "ok");
+  });
+
+  document.getElementById("import-file").addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(reader.result);
+        if (!Array.isArray(data.projects)) throw new Error("bad format");
+        projects = data.projects;
+        persist();
+        renderList();
+        showStatus("io-status", `Loaded ${projects.length} project(s). You can now edit, add, or remove.`, "ok");
+      } catch (err) {
+        showStatus("io-status", "That file doesn't look like a valid projects.json.", "err");
+      }
+    };
+    reader.readAsText(file);
+  });
+
+  load();
+  renderList();
+
+  const welcomeOverlay = document.getElementById("welcome-overlay");
+  setTimeout(() => {
+    welcomeOverlay.classList.add("hide");
+    setTimeout(() => welcomeOverlay.remove(), 750);
+  }, 1700);
+
+  document.getElementById("logout-btn").addEventListener("click", async () => {
+    await fetch("/api/logout", { method: "POST" });
+    window.location.reload();
+  });
+</script>
+
+</body>
+</html>

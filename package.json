@@ -1,0 +1,9 @@
+{
+  "name": "hussaini-automations-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hussaini Automations landing page + password-protected project manager.",
+  "engines": {
+    "node": "20.x"
+  }
+}

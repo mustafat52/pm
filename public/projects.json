@@ -1,0 +1,26 @@
+{
+  "projects": [
+    {
+      "name": "Saifee Inventory",
+      "subtitle": "Smart Inventory Management System",
+      "client": "Saifee Hardware & Plywood",
+      "description": "A hardware and plywood business with 1,500+ products was managing stock manually — slow search, inconsistent counts, no central view. We built a centralised system with fast search, bulk updates, low-stock alerts, role-based access and WhatsApp billing.",
+      "tags": ["Inventory", "Business Management", "Custom Software"],
+      "image": "",
+      "quote": "Product photos, bulk updates, role-based access and WhatsApp billing — all in one place. It changed how we run inventory day to day.",
+      "quoteAuthor": "Saifee Hardware & Plywood",
+      "caseLink": ""
+    },
+    {
+      "name": "ZribbleOS",
+      "subtitle": "Sales & Renewal Operations System",
+      "client": "Zribble",
+      "description": "As a recurring-services business, Zribble's client, contract and payment information was scattered across spreadsheets and chats. ZribbleOS centralises contracts, renewals, payments, payment promises and reporting into one operating system — with role-based views for admins, accounts, executives and account managers.",
+      "tags": ["MIS", "Operations", "Sales", "Renewals"],
+      "image": "",
+      "quote": "",
+      "quoteAuthor": "",
+      "caseLink": ""
+    }
+  ]
+}
