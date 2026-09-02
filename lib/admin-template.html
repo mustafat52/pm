@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hussaini Automations — Project Manager</title>
+<link rel="icon" type="image/png" href="/assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -120,7 +121,7 @@
   .welcome-overlay.hide{ opacity:0; transform:scale(1.04); pointer-events:none; }
   .welcome-inner{ position:relative; text-align:center; }
   .welcome-mark{
-    width:36px; height:36px; margin:0 auto 22px; opacity:0;
+    height:44px; width:auto; margin:0 auto 22px; opacity:0;
     animation:welcomeRise .7s cubic-bezier(.16,.8,.24,1) .1s forwards;
   }
   .welcome-text{
@@ -146,11 +147,7 @@
 
 <div class="welcome-overlay" id="welcome-overlay">
   <div class="welcome-inner">
-    <svg class="welcome-mark" viewBox="0 0 40 40" fill="none">
-      <rect x="1" y="1" width="38" height="38" rx="9" stroke="#c7a25c" stroke-width="1.2"/>
-      <path d="M12 12V28M12 20H22M22 12V28" stroke="#f6f1e6" stroke-width="1.6" stroke-linecap="round"/>
-      <circle cx="28" cy="13" r="2.6" fill="#c7a25c"/>
-    </svg>
+    <img class="welcome-mark" src="/assets/logo.png" alt="Hussaini Automations">
     <div class="welcome-text"><span>Welcome</span><span>back,</span><span>YH.</span></div>
     <div class="welcome-underline"></div>
   </div>
@@ -246,14 +243,23 @@
   </div>
 
   <div class="card">
-    <h2>Import / Export</h2>
-    <p class="hint">Load an existing projects.json to keep editing it, or download your current list to publish.</p>
+    <h2>Publish</h2>
+    <p class="hint">Sends your current project list straight to the live site — no downloads, no GitHub needed.</p>
+    <div class="btn-row">
+      <button class="btn btn-gold" id="publish-btn">Publish to Live Site</button>
+    </div>
+    <div class="status" id="publish-status"></div>
+  </div>
+
+  <div class="card">
+    <h2>Import / Export <span style="font-weight:400;color:var(--ink-soft);">(optional, manual backup)</span></h2>
+    <p class="hint">Load an existing projects.json to keep editing it, or download your current list as a backup file.</p>
     <div class="btn-row">
       <label class="btn btn-ghost" style="cursor:pointer;">
         Load existing projects.json
         <input type="file" id="import-file" accept="application/json" style="display:none;">
       </label>
-      <button class="btn btn-primary" id="download-btn">Download projects.json</button>
+      <button class="btn btn-ghost" id="download-btn">Download projects.json</button>
     </div>
     <div class="status" id="io-status"></div>
   </div>
@@ -412,6 +418,34 @@
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
     }[c]));
   }
+
+  document.getElementById("publish-btn").addEventListener("click", async () => {
+    if (!projects.length) {
+      showStatus("publish-status", "Add at least one project first.", "err");
+      return;
+    }
+    const btn = document.getElementById("publish-btn");
+    btn.disabled = true;
+    const originalText = btn.textContent;
+    btn.textContent = "Publishing...";
+    try {
+      const res = await fetch("/api/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ projects })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        showStatus("publish-status", "Published! The live site will update in about a minute.", "ok");
+      } else {
+        showStatus("publish-status", data.error || "Publish failed. Try again or use the manual download below.", "err");
+      }
+    } catch (err) {
+      showStatus("publish-status", "Couldn't reach the server. Check your connection and try again.", "err");
+    }
+    btn.disabled = false;
+    btn.textContent = originalText;
+  });
 
   document.getElementById("download-btn").addEventListener("click", () => {
     if (!projects.length) {
