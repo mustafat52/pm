@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hussaini Automations — Custom software, built around your business.</title>
+<link rel="icon" type="image/png" href="/assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -75,7 +76,7 @@
     .nav, .nav.scrolled{ padding:18px 22px; }
   }
   .brand{ display:flex; align-items:center; gap:12px; }
-  .brand-mark{ width:34px; height:34px; flex-shrink:0; }
+  .brand-mark{ height:34px; width:auto; flex-shrink:0; }
   .brand-name{ font-family:'Fraunces', serif; font-size:16.5px; color:var(--cream); letter-spacing:0.01em; }
   .nav-links{ display:flex; align-items:center; gap:38px; }
   .nav-links a{
@@ -332,6 +333,29 @@
   @media (prefers-reduced-motion: reduce){
     *{ animation:none !important; transition:none !important; }
   }
+
+  /* ---------- mobile refinements ---------- */
+  @media (max-width:720px){
+    .hero{ padding:120px 0 70px; min-height:auto; }
+    .hero .cta-row{ gap:14px; }
+    .hero-clients{ margin-top:48px; gap:10px 16px; }
+    .sec-head{ margin-bottom:44px; }
+    .why{ padding:90px 0; }
+    .trust{ padding:80px 0; }
+    .final-cta{ padding:100px 0 80px; }
+    .final-cta .cta-row{ margin-top:34px; }
+    .build-cell{ padding:32px 26px; }
+    .device{ transform:none !important; }
+    .project:hover .device{ transform:none !important; }
+    .trust-list .row{ flex-direction:column; align-items:flex-start; gap:4px; }
+  }
+
+  @media (max-width:460px){
+    .btn{ width:100%; justify-content:center; }
+    .hero .cta-row{ flex-direction:column; align-items:stretch; }
+    .final-cta .cta-row{ flex-direction:column; align-items:stretch; }
+    .foot-inner{ flex-direction:column; align-items:flex-start; }
+  }
 </style>
 </head>
 <body>
@@ -341,11 +365,7 @@
 <!-- NAV -->
 <nav class="nav" id="nav">
   <div class="brand">
-    <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
-      <rect x="1" y="1" width="38" height="38" rx="9" stroke="#c7a25c" stroke-width="1.2"/>
-      <path d="M12 12V28M12 20H22M22 12V28" stroke="#f6f1e6" stroke-width="1.6" stroke-linecap="round"/>
-      <circle cx="28" cy="13" r="2.6" fill="#c7a25c"/>
-    </svg>
+    <img class="brand-mark" src="/assets/logo.png" alt="Hussaini Automations">
     <span class="brand-name">Hussaini Automations</span>
   </div>
   <div class="nav-links">
