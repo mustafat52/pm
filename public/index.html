@@ -283,10 +283,9 @@
   .placeholder-note{
     position:absolute; bottom:10px; right:12px; font-size:10.5px; letter-spacing:0.03em; color:rgba(246,241,230,0.28);
   }
-  .device-image{
-    width:100%; height:320px; background-size:cover; background-position:top center; background-color:var(--navy-3);
+  .device-shot{
+    display:block; width:100%; height:auto;
   }
-  @media (max-width:900px){ .device-image{ height:230px; } }
 
   /* ---------- why custom ---------- */
   .why{ padding:150px 0; text-align:left; }
@@ -397,7 +396,12 @@
         <a href="#contact" class="btn btn-primary" data-magnetic>Start a Conversation</a>
         <a href="#work" class="btn btn-ghost" data-magnetic>Explore Our Work</a>
       </div>
-      
+      <div class="hero-clients">
+        <span>Built for</span>
+        <span class="names">Saifee Hardware &amp; Plywood</span>
+        <span>&amp;</span>
+        <span class="names">Zribble</span>
+      </div>
     </div>
   </div>
 </section>
@@ -578,7 +582,7 @@
       return `
         <div class="device">
           <div class="device-bar"><i></i><i></i><i></i></div>
-          <div class="device-image" style="background-image:url('${p.image}')"></div>
+          <img class="device-shot" src="${p.image}" alt="${escapeHtml(p.name)} screenshot">
         </div>`;
     }
     return `
