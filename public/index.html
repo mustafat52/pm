@@ -228,63 +228,28 @@
     .build-cell.tall{ grid-row:auto; }
   }
 
-  /* ---------- selected work ---------- */
+  /* ---------- who we've served ---------- */
   .work{ background:var(--navy); color:var(--cream); }
   .work .sec-head p{ color:rgba(246,241,230,0.62); }
   .work .sec-head .kicker{ color:var(--gold-bright); }
 
-  .project{
-    display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:center;
-    padding:70px 0; border-top:1px solid var(--line-dark);
+  .served-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:1px;
+    background:var(--line-dark); border:1px solid var(--line-dark);
   }
-  .project:last-child{ border-bottom:1px solid var(--line-dark); }
-  .project.reverse{ grid-template-columns:1.1fr 0.9fr; }
-  .project.reverse .project-copy{ order:2; }
-  .project.reverse .project-visual{ order:1; }
-  @media (max-width:900px){
-    .project, .project.reverse{ grid-template-columns:1fr; gap:36px; }
-    .project.reverse .project-copy, .project.reverse .project-visual{ order:0; }
+  .served-card{
+    background:var(--navy); padding:38px 34px; transition:background .4s var(--ease);
   }
+  .served-card:hover{ background:var(--navy-3); }
+  .served-icon{ width:34px; height:34px; color:var(--gold); margin-bottom:20px; }
+  .served-card h3{ font-size:19px; margin-bottom:10px; }
+  .served-card p{ color:rgba(246,241,230,0.62); font-size:14.5px; max-width:300px; }
 
-  .project-index{ font-family:'Fraunces',serif; font-style:italic; color:var(--gold); font-size:14px; margin-bottom:18px; }
-  .project h3{ font-size:clamp(26px,3vw,34px); }
-  .project .built-for{ color:var(--gold-bright); font-size:14px; margin-top:8px; margin-bottom:22px; }
-  .project p.desc{ color:rgba(246,241,230,0.68); font-size:15.5px; max-width:440px; }
-  .project .tags{ display:flex; gap:10px; flex-wrap:wrap; margin-top:26px; }
-  .project .tags span{
-    font-size:12.5px; padding:6px 14px; border:1px solid var(--line-dark); border-radius:100px; color:rgba(246,241,230,0.7);
+  @media (max-width:860px){
+    .served-grid{ grid-template-columns:1fr 1fr; }
   }
-  .quote{
-    margin-top:28px; padding-left:18px; border-left:2px solid var(--gold); font-family:'Fraunces',serif;
-    font-style:italic; font-size:16px; color:var(--cream); max-width:440px; line-height:1.5;
-  }
-  .quote cite{ display:block; margin-top:10px; font-family:'Inter',sans-serif; font-style:normal; font-size:12.5px; color:rgba(246,241,230,0.5); }
-  .case-link{
-    display:inline-flex; align-items:center; gap:8px; margin-top:30px; font-size:14px; color:var(--gold-bright);
-    position:relative;
-  }
-  .case-link .arrow{ transition:transform .35s var(--ease); }
-  .case-link:hover .arrow{ transform:translateX(6px); }
-
-  /* device mockup */
-  .device{
-    position:relative; border-radius:10px; overflow:hidden; border:1px solid rgba(198,162,92,0.25);
-    background:var(--navy-3); box-shadow:0 40px 90px -30px rgba(0,0,0,0.6);
-    transform:perspective(1400px) rotateY(-6deg) rotateX(1deg);
-    transition:transform .6s var(--ease);
-  }
-  .project.reverse .device{ transform:perspective(1400px) rotateY(6deg) rotateX(1deg); }
-  .project:hover .device{ transform:perspective(1400px) rotateY(0deg) rotateX(0deg); }
-  .device-bar{ display:flex; gap:6px; padding:12px 14px; background:rgba(0,0,0,0.18); }
-  .device-bar i{ width:9px; height:9px; border-radius:50%; background:rgba(246,241,230,0.18); }
-  .device-screen{ padding:22px; min-height:260px; display:flex; flex-direction:column; gap:12px; }
-  .mock-row{ display:flex; gap:10px; }
-  .mock-block{ background:rgba(246,241,230,0.06); border:1px solid rgba(198,162,92,0.12); border-radius:6px; }
-  .placeholder-note{
-    position:absolute; bottom:10px; right:12px; font-size:10.5px; letter-spacing:0.03em; color:rgba(246,241,230,0.28);
-  }
-  .device-shot{
-    display:block; width:100%; height:auto;
+  @media (max-width:560px){
+    .served-grid{ grid-template-columns:1fr; }
   }
 
   /* ---------- why custom ---------- */
@@ -344,8 +309,6 @@
     .final-cta{ padding:100px 0 80px; }
     .final-cta .cta-row{ margin-top:34px; }
     .build-cell{ padding:32px 26px; }
-    .device{ transform:none !important; }
-    .project:hover .device{ transform:none !important; }
     .trust-list .row{ flex-direction:column; align-items:flex-start; gap:4px; }
   }
 
@@ -369,7 +332,7 @@
   </div>
   <div class="nav-links">
     <a href="#build">What We Build</a>
-    <a href="#work">Selected Work</a>
+    <a href="#served">Who We've Served</a>
     <a href="#contact">Contact</a>
     <a href="#contact" class="nav-cta">Start a Conversation</a>
   </div>
@@ -378,7 +341,7 @@
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="#build">What We Build</a>
-  <a href="#work">Selected Work</a>
+  <a href="#served">Who We've Served</a>
   <a href="#contact">Contact</a>
   <a href="#contact" class="btn btn-primary nav-cta">Start a Conversation</a>
 </div>
@@ -394,7 +357,7 @@
       <p class="sub">We build custom software, automation and AI solutions designed around the way your business actually works — not the other way around.</p>
       <div class="cta-row">
         <a href="#contact" class="btn btn-primary" data-magnetic>Start a Conversation</a>
-        <a href="#work" class="btn btn-ghost" data-magnetic>Explore Our Work</a>
+        <a href="#served" class="btn btn-ghost" data-magnetic>Who We've Served</a>
       </div>
       <div class="hero-clients">
         <span>Built for</span>
@@ -418,48 +381,84 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">What we build</div>
-      <h2>Software shaped by how your business runs — not a template it has to adapt to.</h2>
+      <h2>One roof for every piece of software your business needs.</h2>
+      <p>We're not just another website studio. From HR to inventory to your day-to-day reporting, we build the full stack of tools that run your business — under one roof, one team, one point of contact.</p>
     </div>
 
     <div class="build-grid reveal">
       <div class="build-cell tall">
         <div>
           <svg class="build-icon" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" rx="4" stroke="currentColor" stroke-width="1.4"/><path d="M6 16h28M16 6v28" stroke="currentColor" stroke-width="1.4"/></svg>
-          <h3>Custom Software</h3>
-          <p>Business systems, dashboards, MIS, internal tools, portals and applications built around your specific workflow — not a generic template.</p>
+          <h3>One-Stop Business Software</h3>
+          <p>HR, accounts, staff management, MIS, inventory, automation — or something we haven't named yet. If it runs your business, we can build it, and we build it around how you already work, not the other way around.</p>
         </div>
         <div class="tag">Flagship service</div>
       </div>
       <div class="build-cell">
+        <svg class="build-icon" viewBox="0 0 40 40" fill="none"><path d="M20 20a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z" stroke="currentColor" stroke-width="1.4"/><path d="M8 34c1.2-6.6 6-10 12-10s10.8 3.4 12 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <h3>HR &amp; Staff Management</h3>
+        <p>Employee records, attendance and day-to-day staff management, built around how your team actually operates.</p>
+      </div>
+      <div class="build-cell">
+        <svg class="build-icon" viewBox="0 0 40 40" fill="none"><rect x="6" y="10" width="28" height="20" rx="3" stroke="currentColor" stroke-width="1.4"/><path d="M6 17h28M14 24h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <h3>Accounts &amp; MIS</h3>
+        <p>Custom accounting, billing and management-information systems that give you one clear view of the business.</p>
+      </div>
+      <div class="build-cell">
+        <svg class="build-icon" viewBox="0 0 40 40" fill="none"><path d="M8 14l12-6 12 6-12 6-12-6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 14v12l12 6 12-6V14" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <h3>Smart Inventory</h3>
+        <p>Stock, billing and low-inventory alerts in one system — built for businesses that outgrew spreadsheets.</p>
+      </div>
+      <div class="build-cell">
         <svg class="build-icon" viewBox="0 0 40 40" fill="none"><path d="M8 20a12 12 0 1 1 24 0 12 12 0 0 1-24 0Z" stroke="currentColor" stroke-width="1.4"/><path d="M20 14v6l4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-        <h3>Business Automation</h3>
-        <p>Automate repetitive workflows and streamline operational processes so your team spends less time on manual work.</p>
-      </div>
-      <div class="build-cell">
-        <svg class="build-icon" viewBox="0 0 40 40" fill="none"><path d="M20 6l3.5 8.5L32 18l-8.5 3.5L20 30l-3.5-8.5L8 18l8.5-3.5L20 6Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
-        <h3>AI Solutions</h3>
-        <p>Practical, AI-powered features and workflows designed around specific business requirements — not novelty for its own sake.</p>
-      </div>
-      <div class="build-cell">
-        <svg class="build-icon" viewBox="0 0 40 40" fill="none"><rect x="5" y="9" width="30" height="22" rx="3" stroke="currentColor" stroke-width="1.4"/><path d="M5 15h30" stroke="currentColor" stroke-width="1.4"/></svg>
-        <h3>Web Applications</h3>
-        <p>Modern, fast web applications built around real business needs, from client portals to internal operating tools.</p>
+        <h3>Automation &amp; Custom Requests</h3>
+        <p>Automate repetitive workflows, or bring us a problem that doesn't fit a category — that's usually our favourite kind.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SELECTED WORK -->
-<section class="work" id="work">
+<!-- WHO WE'VE SERVED -->
+<section class="work" id="served">
   <div class="wrap section-pad">
     <div class="sec-head reveal">
-      <div class="kicker">Selected work</div>
-      <h2>Built. Not just promised.</h2>
-      <p>A look at real systems, built for real businesses, solving real operational problems.</p>
+      <div class="kicker">Who we've served</div>
+      <h2>No niche. No fixed industry. If you run a business, we can help.</h2>
+      <p>We don't specialise in one kind of client — we specialise in one kind of problem: operations spread across spreadsheets, registers and someone's memory. Bring us your business, and we'll bring everything under one roof.</p>
     </div>
 
-    <div id="projects-container"><!-- projects render here from projects.json --></div>
-
+    <div class="served-grid reveal">
+      <div class="served-card">
+        <svg class="served-icon" viewBox="0 0 40 40" fill="none"><path d="M20 6c-5 0-8 3.5-8 8 0 4 2.5 6.5 4 8-3.5 1-8 3.5-8 8v4h24v-4c0-4.5-4.5-7-8-8 1.5-1.5 4-4 4-8 0-4.5-3-8-8-8Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <h3>Healthcare</h3>
+        <p>A doctor's clinic, running patient and practice workflows on custom software instead of paper.</p>
+      </div>
+      <div class="served-card">
+        <svg class="served-icon" viewBox="0 0 40 40" fill="none"><path d="M6 34V16l14-10 14 10v18" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M12 34V20h16v14" stroke="currentColor" stroke-width="1.3"/></svg>
+        <h3>Architecture</h3>
+        <p>An architecture practice, with project and client information organised in one place.</p>
+      </div>
+      <div class="served-card">
+        <svg class="served-icon" viewBox="0 0 40 40" fill="none"><rect x="7" y="14" width="26" height="18" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M7 20h26M14 14v-3h12v3" stroke="currentColor" stroke-width="1.3"/></svg>
+        <h3>Hardware &amp; Retail</h3>
+        <p>A hardware store with 1,500+ products, moved from manual stock-taking to smart inventory.</p>
+      </div>
+      <div class="served-card">
+        <svg class="served-icon" viewBox="0 0 40 40" fill="none"><path d="M20 6l5 10-5 4-5-4 5-10Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M11 20l9 14 9-14" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <h3>Glass &amp; Manufacturing</h3>
+        <p>A glass business, now running accounts, billing and reporting on one custom system.</p>
+      </div>
+      <div class="served-card">
+        <svg class="served-icon" viewBox="0 0 40 40" fill="none"><rect x="9" y="6" width="22" height="28" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M15 14h10M15 20h10M15 26h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <h3>Corporate Organisations</h3>
+        <p>A corporate organisation, with internal operations and reporting brought into a single dashboard.</p>
+      </div>
+      <div class="served-card">
+        <svg class="served-icon" viewBox="0 0 40 40" fill="none"><path d="M14 8l6 4 6-4 4 6-4 4 4 14H10l4-14-4-4 4-6Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <h3>Fashion &amp; Design</h3>
+        <p>A fashion designer, with orders, inventory and clients managed through one custom tool.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -479,8 +478,8 @@
       <cite>Mustafa Taj, Founder, Hussaini Automations</cite>
     </div>
     <div class="trust-list reveal">
-      <div class="row"><span>Industry</span><b>Hardware &amp; Retail</b></div>
-      <div class="row"><span>Industry</span><b>Recurring Services / SaaS Operations</b></div>
+      <div class="row"><span>Industries served</span><b>No fixed niche — any business, any sector</b></div>
+      <div class="row"><span>What we build</span><b>HR, accounts, inventory, MIS, automation &amp; more</b></div>
       <div class="row"><span>Approach</span><b>Built around existing workflows, not against them</b></div>
       <div class="row"><span>Delivery</span><b>Working software with ongoing maintenance support</b></div>
     </div>
@@ -541,98 +540,6 @@
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // ---------- dynamic projects (Selected Work) ----------
-  // Fallback data used only if projects.json can't be loaded (e.g. opened straight
-  // from disk without a local server). Once this file is hosted, projects.json
-  // is the real source of truth and is edited via project-manager.html.
-  const FALLBACK_PROJECTS = [
-    {
-      name: "Saifee Inventory",
-      subtitle: "Smart Inventory Management System",
-      client: "Saifee Hardware & Plywood",
-      description: "A hardware and plywood business with 1,500+ products was managing stock manually — slow search, inconsistent counts, no central view. We built a centralised system with fast search, bulk updates, low-stock alerts, role-based access and WhatsApp billing.",
-      tags: ["Inventory", "Business Management", "Custom Software"],
-      image: "",
-      quote: "Product photos, bulk updates, role-based access and WhatsApp billing — all in one place. It changed how we run inventory day to day.",
-      quoteAuthor: "Saifee Hardware & Plywood",
-      caseLink: ""
-    },
-    {
-      name: "ZribbleOS",
-      subtitle: "Sales & Renewal Operations System",
-      client: "Zribble",
-      description: "As a recurring-services business, Zribble's client, contract and payment information was scattered across spreadsheets and chats. ZribbleOS centralises contracts, renewals, payments, payment promises and reporting into one operating system — with role-based views for admins, accounts, executives and account managers.",
-      tags: ["MIS", "Operations", "Sales", "Renewals"],
-      image: "",
-      quote: "",
-      quoteAuthor: "",
-      caseLink: ""
-    }
-  ];
-
-  function escapeHtml(str) {
-    return String(str || "").replace(/[&<>"']/g, (c) => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-    }[c]));
-  }
-
-  function projectVisualHTML(p) {
-    if (p.image) {
-      return `
-        <div class="device">
-          <div class="device-bar"><i></i><i></i><i></i></div>
-          <img class="device-shot" src="${p.image}" alt="${escapeHtml(p.name)} screenshot">
-        </div>`;
-    }
-    return `
-      <div class="device">
-        <div class="device-bar"><i></i><i></i><i></i></div>
-        <div class="device-screen">
-          <div class="mock-row"><div class="mock-block" style="width:32%;height:64px;"></div><div class="mock-block" style="width:66%;height:64px;"></div></div>
-          <div class="mock-row"><div class="mock-block" style="width:100%;height:18px;"></div></div>
-          <div class="mock-row"><div class="mock-block" style="width:100%;height:18px;"></div></div>
-          <div class="mock-row"><div class="mock-block" style="width:48%;height:90px;"></div><div class="mock-block" style="width:48%;height:90px;"></div></div>
-        </div>
-        <div class="placeholder-note">Add a screenshot in the project manager</div>
-      </div>`;
-  }
-
-  function projectHTML(p, i) {
-    const reverse = i % 2 === 1 ? " reverse" : "";
-    const num = String(i + 1).padStart(2, "0");
-    const tags = (p.tags || []).map(t => `<span>${escapeHtml(t)}</span>`).join("");
-    const quote = p.quote
-      ? `<div class="quote">"${escapeHtml(p.quote)}"<cite>— ${escapeHtml(p.quoteAuthor || p.client)}</cite></div>`
-      : "";
-    const link = p.caseLink
-      ? `<a href="${escapeHtml(p.caseLink)}" class="case-link">View Case Study <span class="arrow">→</span></a>`
-      : "";
-    return `
-      <div class="project${reverse} reveal">
-        <div class="project-copy">
-          <div class="project-index">Project ${num}</div>
-          <h3>${escapeHtml(p.name)}</h3>
-          <div class="built-for">${escapeHtml(p.subtitle)} — Built for ${escapeHtml(p.client)}</div>
-          <p class="desc">${escapeHtml(p.description)}</p>
-          <div class="tags">${tags}</div>
-          ${quote}
-          ${link}
-        </div>
-        <div class="project-visual">${projectVisualHTML(p)}</div>
-      </div>`;
-  }
-
-  function renderProjects(projects) {
-    const container = document.getElementById("projects-container");
-    container.innerHTML = projects.map(projectHTML).join("");
-    container.querySelectorAll(".reveal").forEach(el => io.observe(el));
-  }
-
-  fetch("projects.json", { cache: "no-store" })
-    .then(res => { if (!res.ok) throw new Error("no projects.json"); return res.json(); })
-    .then(data => renderProjects(Array.isArray(data.projects) && data.projects.length ? data.projects : FALLBACK_PROJECTS))
-    .catch(() => renderProjects(FALLBACK_PROJECTS));
 
   // custom cursor (desktop only)
   const cursor = document.getElementById('cursor');
